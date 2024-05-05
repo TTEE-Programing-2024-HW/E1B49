@@ -53,7 +53,47 @@ int main()
         
         if (input == password)
         {
-            
+            while (1)
+            {
+                system("cls");
+                printf(" -----------------------------------------\n");
+                printf("|            a. 畫出直角三角形            |\n");
+                printf("|                                         |\n");
+				printf("|             b. 顯示乘法表               |\n");
+                printf("|                                         |\n");
+				printf("|                c. 結束                  |\n");
+                printf(" -----------------------------------------\n");
+                
+                printf("輸入A、B、C以繼續，不分大小寫：");
+                choice = getche();
+
+                switch (choice)
+                {
+                    case 'a':
+                    case 'A':
+                        handleTriangleOption();
+                        break;
+                        
+                    case 'b':
+                    case 'B':
+                        handleMultiplicationTableOption();
+                        break;
+                        
+                    case 'c':
+                    case 'C':
+                        if (handleExitOption() == 1)
+                        {
+                            return 0;  // 如果選擇結束，退出程式
+                        }
+                        break;
+                        
+                    default:
+                    	printf("\n");
+                        printf("\n無效的選項！");
+                        getch();
+                        break;
+                }
+            }
         }
         else
         {
