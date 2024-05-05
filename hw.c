@@ -177,3 +177,15 @@ void handleMultiplicationTableOption()
     
     getch();  // 等待任意鍵回到主選單
 }
+
+void printMultiplicationTable(int n)
+{
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= n; j++)
+        {
+            printf("%d＊%d＝%2d  ", i, j, i * j);
+        }
+        printf("\n");
+    }
+}
