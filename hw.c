@@ -8,8 +8,3 @@ void printMultiplicationTable(int n);
 int handleExitOption();
 void handleTriangleOption();
 void handleMultiplicationTableOption();
-
-int main()
-{
-    return 0;
-}
