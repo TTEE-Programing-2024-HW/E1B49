@@ -44,6 +44,30 @@ int main()
 	printf("*                                                *\n");
 	printf("*                                                *\n");
 	printf("**************************************************\n");
-    
+
+    while (attempt < max_attempts)
+    {
+        printf("請輸入四位數字的密碼：");
+        fflush(stdin);
+        scanf("%d", &input);
+        
+        if (input == password)
+        {
+            
+        }
+        else
+        {
+            attempt++;
+            printf("\n密碼錯誤！這是第 %d 次嘗試，還剩 %d 次機會。\n", attempt, max_attempts - attempt);
+            
+            if (attempt == max_attempts)
+            {
+                printf("\n連續三次密碼錯誤，程式即將結束。");
+                
+                return 1; // 結束程式
+            }
+        }
+    }
+
     return 0;
 }
