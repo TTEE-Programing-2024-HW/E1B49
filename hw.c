@@ -134,3 +134,23 @@ void handleTriangleOption()
     
     getch();  // 等待任意鍵回到主選單
 }
+
+void showTriangle(char c)
+{
+    int height = c - 'a' + 1;  // 計算三角形的高度
+    
+    for (int row = 1; row <= height; row++)
+    {
+        // 打印空格，對齊三角形的右側
+        for (int space = 1; space <= height - row; space++)
+        {
+            printf(" ");
+        }
+        // 打印從字母開始到輸入字母的字符
+        for (char col = c - row + 1; col <= c; col++)
+        {
+            printf("%c", col);
+        }
+        printf("\n");
+    }
+}
