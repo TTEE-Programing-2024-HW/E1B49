@@ -44,8 +44,8 @@ int main()
 	printf("*                                                *\n");
 	printf("*                                                *\n");
 	printf("**************************************************\n");
-
-    while (attempt < max_attempts)
+	
+	while (attempt < max_attempts)
     {
         printf("請輸入四位數字的密碼：");
         fflush(stdin);
@@ -108,7 +108,7 @@ int main()
             }
         }
     }
-
+    
     return 0;
 }
 
