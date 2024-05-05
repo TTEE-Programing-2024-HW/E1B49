@@ -154,3 +154,26 @@ void showTriangle(char c)
         printf("\n");
     }
 }
+
+void handleMultiplicationTableOption()
+{
+    int n;
+    
+    printf("\n");
+    printf("\n請輸入一個整數（1至9）：");
+    fflush(stdin);
+    scanf("%d", &n);
+    
+    if (n < 1 || n > 9)
+    {
+        printf("\n錯誤的輸入！請輸入1至9之間的整數。");
+        getch();  // 等待任意鍵再次輸入
+    }
+    else
+    {
+        system("cls");
+        printMultiplicationTable(n);
+    }
+    
+    getch();  // 等待任意鍵回到主選單
+}
