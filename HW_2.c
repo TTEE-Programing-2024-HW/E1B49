@@ -189,3 +189,32 @@ void printMultiplicationTable(int n)
         printf("\n");
     }
 }
+
+int handleExitOption()
+{
+    char choice;
+    
+    printf("\n");
+    printf("\nContinue？（y/n）");
+    choice = getch();
+    
+    if (choice == 'y' || choice == 'Y')
+    {
+    	return 0;
+    }
+    else if (choice == 'n' || choice == 'N')
+    {
+    	printf("\n");
+        printf("\n程式結束，回到作業系統。");
+        
+        return 1;
+    }
+    else
+    {
+    	printf("\n");
+        printf("\n錯誤的輸入！請輸入 y 或 n，重新輸入。");
+        getch();
+        
+        return 0;
+    }
+}
