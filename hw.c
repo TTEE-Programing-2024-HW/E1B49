@@ -111,3 +111,26 @@ while (attempt < max_attempts)
     
     return 0;
 }
+
+void handleTriangleOption()
+{
+    char character;
+    
+    printf("\n");
+    printf("\n請輸入一個字元（a 到 n）：");
+    fflush(stdin);
+    scanf(" %c", &character);
+    
+    if (character < 'a' || character > 'n')
+    {
+        printf("\n錯誤的輸入！請重新輸入。");
+        getch();  // 等待任意鍵再次輸入
+    }
+    else
+    {
+        system("cls");
+        showTriangle(character);
+    }
+    
+    getch();  // 等待任意鍵回到主選單
+}
