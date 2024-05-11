@@ -59,6 +59,20 @@ int password_prompt()
     return 0; // Password failed
 }
 
+// Function to print the main menu
+void print_menu()
+{
+    printf(" -------------[Booking System]-------------\n");
+    printf("|            a. Available seats            |\n");
+    printf("|                                          |\n");
+    printf("|            b. Arrange for you            |\n");
+    printf("|                                          |\n");
+    printf("|           c. Choose by yourself          |\n");
+    printf("|                                          |\n");
+    printf("|                  d. Exit                 |\n");
+    printf(" ------------------------------------------\n");
+}
+
 int main()
 {
     return 0;
