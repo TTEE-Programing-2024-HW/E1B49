@@ -34,6 +34,31 @@ void print_welcome_screen()
     printf("****************************************\n");
 }
 
+// Function to prompt for password
+int password_prompt()
+{
+    int input, attempts = 0;
+
+    // User gets three attempts to enter the correct password
+    while (attempts < 3)
+    {
+        printf("Please enter your 4-digit password: ");
+        scanf("%d", &input);
+        if (input == PASSWORD)
+        {
+            return 1; // Password correct
+        }
+        else
+        {
+            printf("Incorrect password. Please try again.\n");
+            attempts++;
+        }
+    }
+
+    printf("Incorrect password entered three times. Exiting...\n");
+    return 0; // Password failed
+}
+
 int main()
 {
     return 0;
