@@ -9,7 +9,6 @@
 #define COLS 9
 #define PASSWORD 2024
 
-// Function to print the welcome screen
 void print_welcome_screen()
 {
     printf("****************************************\n");
@@ -91,13 +90,13 @@ void initialize_seats(char seats[ROWS][COLS])
         }
     }
 
-    for (int k = 0; k < 18; k++)
+    for (int k = 0; k < 10; k++) // Now initializing only 10 random seats
     {
         int r = rand() % ROWS;
         int c = rand() % COLS;
         if (seats[r][c] == '*')
         {
-            k--;
+            k--; // Avoid duplicating the seat assignment
         }
         else
         {
@@ -130,7 +129,6 @@ int try_assign_seats(char seats[ROWS][COLS], int num_seats)
 {
     if (num_seats == 4)
     {
-        // Try to find 4 seats in a row first
         for (int row = 0; row < ROWS; row++)
         {
             for (int col = 0; col <= COLS - num_seats; col++)
@@ -142,7 +140,6 @@ int try_assign_seats(char seats[ROWS][COLS], int num_seats)
                 }
             }
         }
-        // Try to find 2 seats in adjacent rows
         for (int row = 0; row < ROWS - 1; row++)
         {
             for (int col = 0; col <= COLS - 2; col++)
@@ -158,7 +155,6 @@ int try_assign_seats(char seats[ROWS][COLS], int num_seats)
     }
     else
     {
-        // Try to assign 1 to 3 seats in a row
         for (int row = 0; row < ROWS; row++)
         {
             for (int col = 0; col <= COLS - num_seats; col++)
