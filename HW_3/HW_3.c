@@ -34,47 +34,37 @@ void print_welcome_screen()
     printf("****************************************\n");
 }
 
-// Function to prompt for password
 int password_prompt()
 {
     int input, attempts = 0;
-
-    // User gets three attempts to enter the correct password
     while (attempts < 3)
     {
         printf("Please enter your 4-digit password: ");
-        fflush(stdin);
-        scanf("%d", &input);
-        if (input == PASSWORD)
+        if (scanf("%d", &input) == 1 && input == PASSWORD)
         {
-            return 1; // Password correct
+            return 1;
         }
         else
         {
             printf("Incorrect password. Please try again.\n");
+            fflush(stdin); // Clear input buffer
             attempts++;
         }
     }
-
     printf("Incorrect password entered three times. Exiting...\n");
-    return 0; // Password failed
+    return 0;
 }
 
-// Function to print the main menu
 void print_menu()
 {
     printf(" -------------[Booking System]-------------\n");
     printf("|            a. Available seats            |\n");
-    printf("|                                          |\n");
     printf("|            b. Arrange for you            |\n");
-    printf("|                                          |\n");
     printf("|           c. Choose by yourself          |\n");
-    printf("|                                          |\n");
     printf("|                  d. Exit                 |\n");
     printf(" ------------------------------------------\n");
 }
 
-// Function to print the seating chart
 void print_seats(char seats[ROWS][COLS])
 {
     printf("   123456789\n");
@@ -89,9 +79,9 @@ void print_seats(char seats[ROWS][COLS])
     }
 }
 
-// Function to initialize the seating chart with random bookings
 void initialize_seats(char seats[ROWS][COLS])
 {
+    srand(time(NULL));
     for (int i = 0; i < ROWS; i++)
     {
         for (int j = 0; j < COLS; j++)
@@ -100,14 +90,13 @@ void initialize_seats(char seats[ROWS][COLS])
         }
     }
 
-    srand(time(NULL));
-    for (int k = 0; k < 10; k++)
+    for (int k = 0; k < 18; k++)
     {
         int r = rand() % ROWS;
         int c = rand() % COLS;
         if (seats[r][c] == '*')
         {
-            k--; // If already booked, retry
+            k--;
         }
         else
         {
@@ -116,12 +105,11 @@ void initialize_seats(char seats[ROWS][COLS])
     }
 }
 
-// Function to check and assign seats for automatic arrangement
-int check_seats(char seats[ROWS][COLS], int row, int start_col, int num_seats) 
+int check_seats(char seats[ROWS][COLS], int row, int start_col, int num_seats)
 {
-    for (int i = 0; i < num_seats; i++) 
+    for (int i = 0; i < num_seats; i++)
     {
-        if (seats[row][start_col + i] != '-') 
+        if (seats[row][start_col + i] != '-')
         {
             return 0; // Seat is already booked
         }
@@ -129,89 +117,102 @@ int check_seats(char seats[ROWS][COLS], int row, int start_col, int num_seats)
     return 1; // Seats are available
 }
 
-void assign_seats(char seats[ROWS][COLS], int num_seats) 
+void mark_seats(char seats[ROWS][COLS], int row, int col, int num_seats, char mark)
 {
-    int assigned = 0;
-    while (!assigned) 
+    for (int i = 0; i < num_seats; i++)
     {
-        int row = rand() % ROWS;
-        int col = rand() % (COLS - num_seats + 1); // Ensure there are enough contiguous seats
+        seats[row][col + i] = mark;
+    }
+}
 
-        if (check_seats(seats, row, col, num_seats)) 
+int try_assign_seats(char seats[ROWS][COLS], int num_seats)
+{
+    if (num_seats == 4)
+    {
+        // Try to find 4 seats in a row first
+        for (int row = 0; row < ROWS; row++)
         {
-            for (int i = 0; i < num_seats; i++) 
+            for (int col = 0; col <= COLS - num_seats; col++)
             {
-                seats[row][col + i] = '@'; // Mark the recommended seats
+                if (check_seats(seats, row, col, num_seats))
+                {
+                    mark_seats(seats, row, col, num_seats, '@');
+                    return 1;
+                }
             }
-            assigned = 1;
+        }
+        // Try to find 2 seats in adjacent rows
+        for (int row = 0; row < ROWS - 1; row++)
+        {
+            for (int col = 0; col <= COLS - 2; col++)
+            {
+                if (check_seats(seats, row, col, 2) && check_seats(seats, row + 1, col, 2))
+                {
+                    mark_seats(seats, row, col, 2, '@');
+                    mark_seats(seats, row + 1, col, 2, '@');
+                    return 1;
+                }
+            }
+        }
+    }
+    else
+    {
+        // Try to assign 1 to 3 seats in a row
+        for (int row = 0; row < ROWS; row++)
+        {
+            for (int col = 0; col <= COLS - num_seats; col++)
+            {
+                if (check_seats(seats, row, col, num_seats))
+                {
+                    mark_seats(seats, row, col, num_seats, '@');
+                    return 1;
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+void ask_for_satisfaction(char seats[ROWS][COLS], int num_seats)
+{
+    char response;
+    print_seats(seats);
+    printf("Do you like these seats? (Y/N): ");
+    fflush(stdin);
+    scanf(" %c", &response);
+    response = toupper(response);
+    if (response == 'Y')
+    {
+        for (int row = 0; row < ROWS; row++)
+        {
+            for (int col = 0; col < COLS; col++)
+            {
+                if (seats[row][col] == '@')
+                {
+                    seats[row][col] = '*'; // Finalize the booking
+                }
+            }
+        }
+    }
+    else
+    {
+        for (int row = 0; row < ROWS; row++)
+        {
+            for (int col = 0; col < COLS; col++)
+            {
+                if (seats[row][col] == '@')
+                {
+                    seats[row][col] = '-'; // Reset the proposed seats
+                }
+            }
         }
     }
 }
 
-// Function to allow users to choose their own seats
-void process_seat_selection(char seats[ROWS][COLS])
+void exit_sequence()
 {
-    char input[10];
-    int row, col;
-    char response;
-
-    printf("Enter seat (e.g., 1-2 for row 1, column 2): ");
-    while (scanf("%s", input) == 1) 
-    {
-        if (sscanf(input, "%d-%d", &row, &col) == 2 && row > 0 && col > 0 && row <= ROWS && col <= COLS && seats[row-1][col-1] == '-') 
-        {
-            seats[row-1][col-1] = '@';  // Mark the selected seat
-            print_seats(seats);
-            printf("Are you satisfied with this seat (y/n)? ");
-            fflush(stdin);
-            scanf(" %c", &response);
-            fflush(stdin);
-
-            if (toupper(response) == 'Y') 
-            {
-                seats[row-1][col-1] = '*';  // Finalize the booking
-                return; // Exit after booking
-            }
-            else 
-            {
-                seats[row-1][col-1] = '-'; // Reset if not satisfied
-                printf("Please re-enter your seat choice: ");
-            }
-        }
-        else 
-        {
-            printf("Invalid seat or already booked. Please try again: ");
-        }
-        fflush(stdin);
-    }
-}
-
-// Function to handle exit sequence
-void exit_sequence() 
-{
-    char response;
-    do
-    {
-        printf("Continue? (Y/N): ");
-        fflush(stdin);
-        scanf(" %c", &response);
-        response = toupper(response);
-
-        if (response == 'Y') 
-        {
-            system("clear"); // Clear the screen and return to the main menu
-            return;
-        } 
-        else if (response == 'N') 
-        {
-            printf("Exiting program.\n");
-            exit(0);
-        } 
-        else 
-        {
-            printf("Invalid input. Please enter 'Y' for Yes or 'N' for No.\n");
-        }
-    } while (response != 'Y' && response != 'N');
+    printf("Exiting program.\n");
+    exit(0);
 }
 
 int main()
@@ -235,49 +236,45 @@ int main()
         print_menu();
         printf("Choose an option: ");
         fflush(stdin);
-        scanf(" %c", &command);
+        if (scanf(" %c", &command) != 1 || !strchr("abcd", tolower(command)))
+        {
+            printf("Invalid command. Please try again.\n");
+            fflush(stdin); // Clear input buffer
+            continue; // Skip the rest of the loop
+        }
+
         command = tolower(command);
 
         switch (command)
         {
             case 'a':
-            {
                 print_seats(seats);
                 printf("Press any key to return to the main menu...\n");
-                getchar(); getchar();
+                getch();
                 break;
-            }
             case 'b':
-            {
                 printf("How many seats do you need (1-4)? ");
-                fflush(stdin);
-                scanf("%d", &num_seats);
-                if (num_seats >= 1 && num_seats <= 4)
+                if (scanf("%d", &num_seats) != 1 || num_seats < 1 || num_seats > 4)
                 {
-                    assign_seats(seats, num_seats);
-                    print_seats(seats);
-                    printf("Press any key to return to the main menu...\n");
-                    getchar(); getchar();
+                    printf("Invalid number of seats. Please enter a number between 1 and 4.\n");
+                    fflush(stdin); // Clear input buffer
+                    break;
+                }
+                if (try_assign_seats(seats, num_seats))
+                {
+                    ask_for_satisfaction(seats, num_seats);
+                }
+                else
+                {
+                    printf("Unable to assign the requested number of seats. Please try again.\n");
                 }
                 break;
-            }
             case 'c':
-            {
-                process_seat_selection(seats);
-                printf("Press any key to return to the main menu...\n");
-                getchar(); getchar();
+                // Here you would have your manual seat selection function logic
                 break;
-            }
             case 'd':
-            {
                 exit_sequence();
                 break;
-            }
-            default:
-            {
-                printf("Invalid command. Please try again.\n");
-                break;
-            }
         }
     }
 
