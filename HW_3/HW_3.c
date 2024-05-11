@@ -3,6 +3,7 @@
 #include <conio.h>
 #include <time.h>
 #include <ctype.h>
+#include <string.h> 
 
 #define ROWS 9
 #define COLS 9
