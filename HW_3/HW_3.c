@@ -43,6 +43,7 @@ int password_prompt()
     while (attempts < 3)
     {
         printf("Please enter your 4-digit password: ");
+        fflush(stdin);
         scanf("%d", &input);
         if (input == PASSWORD)
         {
@@ -162,7 +163,9 @@ void process_seat_selection(char seats[ROWS][COLS])
             seats[row-1][col-1] = '@';  // Mark the selected seat
             print_seats(seats);
             printf("Are you satisfied with this seat (y/n)? ");
+            fflush(stdin);
             scanf(" %c", &response);
+            fflush(stdin);
 
             if (toupper(response) == 'Y') 
             {
@@ -179,6 +182,7 @@ void process_seat_selection(char seats[ROWS][COLS])
         {
             printf("Invalid seat or already booked. Please try again: ");
         }
+        fflush(stdin);
     }
 }
 
@@ -189,6 +193,7 @@ void exit_sequence()
     do
     {
         printf("Continue? (Y/N): ");
+        fflush(stdin);
         scanf(" %c", &response);
         response = toupper(response);
 
@@ -230,6 +235,7 @@ int main()
         print_seats(seats);
         print_menu();
         printf("Choose an option: ");
+        fflush(stdin);
         scanf(" %c", &command);
         command = tolower(command);
 
@@ -245,6 +251,7 @@ int main()
             case 'b':
             {
                 printf("How many seats do you need (1-4)? ");
+                fflush(stdin);
                 scanf("%d", &num_seats);
                 if (num_seats >= 1 && num_seats <= 4)
                 {
