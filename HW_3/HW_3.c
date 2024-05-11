@@ -232,7 +232,6 @@ int main()
     while (1)
     {
         system("cls");
-        print_seats(seats);
         print_menu();
         printf("Choose an option: ");
         fflush(stdin);
