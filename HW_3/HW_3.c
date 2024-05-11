@@ -88,6 +88,33 @@ void print_seats(char seats[ROWS][COLS])
     }
 }
 
+// Function to initialize the seating chart with random bookings
+void initialize_seats(char seats[ROWS][COLS])
+{
+    for (int i = 0; i < ROWS; i++)
+    {
+        for (int j = 0; j < COLS; j++)
+        {
+            seats[i][j] = '-';
+        }
+    }
+
+    srand(time(NULL));
+    for (int k = 0; k < 10; k++)
+    {
+        int r = rand() % ROWS;
+        int c = rand() % COLS;
+        if (seats[r][c] == '*')
+        {
+            k--; // If already booked, retry
+        }
+        else
+        {
+            seats[r][c] = '*';
+        }
+    }
+}
+
 int main()
 {
     return 0;
