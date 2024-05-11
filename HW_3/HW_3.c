@@ -147,6 +147,41 @@ void assign_seats(char seats[ROWS][COLS], int num_seats)
     }
 }
 
+// Function to allow users to choose their own seats
+void process_seat_selection(char seats[ROWS][COLS])
+{
+    char input[10];
+    int row, col;
+    char response;
+
+    printf("Enter seat (e.g., 1-2 for row 1, column 2): ");
+    while (scanf("%s", input) == 1) 
+    {
+        if (sscanf(input, "%d-%d", &row, &col) == 2 && row > 0 && col > 0 && row <= ROWS && col <= COLS && seats[row-1][col-1] == '-') 
+        {
+            seats[row-1][col-1] = '@';  // Mark the selected seat
+            print_seats(seats);
+            printf("Are you satisfied with this seat (y/n)? ");
+            scanf(" %c", &response);
+            
+            if (toupper(response) == 'Y') 
+            {
+                seats[row-1][col-1] = '*';  // Finalize the booking
+                return; // Exit after booking
+            }
+            else 
+            {
+                seats[row-1][col-1] = '-'; // Reset if not satisfied
+                printf("Please re-enter your seat choice: ");
+            }
+        }
+        else 
+        {
+            printf("Invalid seat or already booked. Please try again: ");
+        }
+    }
+}
+
 int main()
 {
     return 0;
