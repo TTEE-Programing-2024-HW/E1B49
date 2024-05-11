@@ -4,6 +4,10 @@
 #include <time.h>
 #include <ctype.h>
 
+#define ROWS 9
+#define COLS 9
+#define PASSWORD 2024
+
 // Function to print the welcome screen
 void print_welcome_screen()
 {
