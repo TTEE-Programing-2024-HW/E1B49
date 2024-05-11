@@ -211,5 +211,69 @@ void exit_sequence()
 
 int main()
 {
+    char seats[ROWS][COLS];
+    char command;
+    int num_seats;
+
+    system("clear");
+    print_welcome_screen();
+    if (!password_prompt())
+    {
+        return 0;
+    }
+
+    initialize_seats(seats);
+
+    while (1)
+    {
+        system("clear");
+        print_seats(seats);
+        print_menu();
+        printf("Choose an option: ");
+        scanf(" %c", &command);
+        command = tolower(command);
+
+        switch (command)
+        {
+            case 'a':
+            {
+                print_seats(seats);
+                printf("Press any key to return to the main menu...\n");
+                getchar(); getchar();
+                break;
+            }
+            case 'b':
+            {
+                printf("How many seats do you need (1-4)? ");
+                scanf("%d", &num_seats);
+                if (num_seats >= 1 && num_seats <= 4)
+                {
+                    assign_seats(seats, num_seats);
+                    print_seats(seats);
+                    printf("Press any key to return to the main menu...\n");
+                    getchar(); getchar();
+                }
+                break;
+            }
+            case 'c':
+            {
+                process_seat_selection(seats);
+                printf("Press any key to return to the main menu...\n");
+                getchar(); getchar();
+                break;
+            }
+            case 'd':
+            {
+                exit_sequence();
+                break;
+            }
+            default:
+            {
+                printf("Invalid command. Please try again.\n");
+                break;
+            }
+        }
+    }
+
     return 0;
 }
