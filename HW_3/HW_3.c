@@ -73,6 +73,21 @@ void print_menu()
     printf(" ------------------------------------------\n");
 }
 
+// Function to print the seating chart
+void print_seats(char seats[ROWS][COLS])
+{
+    printf("   123456789\n");
+    for (int i = 0; i < ROWS; i++)
+    {
+        printf("%d  ", i + 1);
+        for (int j = 0; j < COLS; j++)
+        {
+            printf("%c", seats[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 int main()
 {
     return 0;
