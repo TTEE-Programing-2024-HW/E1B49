@@ -163,7 +163,7 @@ void process_seat_selection(char seats[ROWS][COLS])
             print_seats(seats);
             printf("Are you satisfied with this seat (y/n)? ");
             scanf(" %c", &response);
-            
+
             if (toupper(response) == 'Y') 
             {
                 seats[row-1][col-1] = '*';  // Finalize the booking
@@ -180,6 +180,33 @@ void process_seat_selection(char seats[ROWS][COLS])
             printf("Invalid seat or already booked. Please try again: ");
         }
     }
+}
+
+// Function to handle exit sequence
+void exit_sequence() 
+{
+    char response;
+    do
+    {
+        printf("Continue? (Y/N): ");
+        scanf(" %c", &response);
+        response = toupper(response);
+
+        if (response == 'Y') 
+        {
+            system("clear"); // Clear the screen and return to the main menu
+            return;
+        } 
+        else if (response == 'N') 
+        {
+            printf("Exiting program.\n");
+            exit(0);
+        } 
+        else 
+        {
+            printf("Invalid input. Please enter 'Y' for Yes or 'N' for No.\n");
+        }
+    } while (response != 'Y' && response != 'N');
 }
 
 int main()
