@@ -115,6 +115,38 @@ void initialize_seats(char seats[ROWS][COLS])
     }
 }
 
+// Function to check and assign seats for automatic arrangement
+int check_seats(char seats[ROWS][COLS], int row, int start_col, int num_seats) 
+{
+    for (int i = 0; i < num_seats; i++) 
+    {
+        if (seats[row][start_col + i] != '-') 
+        {
+            return 0; // Seat is already booked
+        }
+    }
+    return 1; // Seats are available
+}
+
+void assign_seats(char seats[ROWS][COLS], int num_seats) 
+{
+    int assigned = 0;
+    while (!assigned) 
+    {
+        int row = rand() % ROWS;
+        int col = rand() % (COLS - num_seats + 1); // Ensure there are enough contiguous seats
+
+        if (check_seats(seats, row, col, num_seats)) 
+        {
+            for (int i = 0; i < num_seats; i++) 
+            {
+                seats[row][col + i] = '@'; // Mark the recommended seats
+            }
+            assigned = 1;
+        }
+    }
+}
+
 int main()
 {
     return 0;
