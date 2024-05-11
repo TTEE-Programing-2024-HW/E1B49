@@ -215,7 +215,7 @@ int main()
     char command;
     int num_seats;
 
-    system("clear");
+    system("cls");
     print_welcome_screen();
     if (!password_prompt())
     {
