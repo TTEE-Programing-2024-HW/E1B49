@@ -22,7 +22,20 @@ int findFourSeats(int seats[ROWS][COLS]);
 
 int main()
 {
+    int keepRunning = 1;
+
     if (checkPassword())
+    {
+        do
+        {
+            showMainMenu();
+        } while (keepRunning);
+    }
+    else
+    {
+        printf("\nPassword input error three times, the program will end soon.");
+    }
+    
 
     return 0;
 }
@@ -69,4 +82,16 @@ int checkPassword()
         }
     }
     return 0;
+}
+
+void showMainMenu()
+{
+    system("cls");
+    printf(" -------------[Booking System]-------------\n");
+    printf("|            a. Available seats            |\n");
+    printf("|            b. Arrange for you            |\n");
+    printf("|           c. Choose by yourself          |\n");
+    printf("|                  d. Exit                 |\n");
+    printf(" ------------------------------------------\n");
+    printf("Please choose one of the options¡G");
 }
