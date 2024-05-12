@@ -78,6 +78,10 @@ int main()
                         pressAnyKeyToContinue();
                     }
                     break;
+                    
+                case 'c':
+                    chooseSeats(seats);
+                    break;
 
                 default:
                     printf("\nInvalid input, please re-enter.\n");
@@ -263,4 +267,71 @@ void revertSuggestedSeats(int seats[ROWS][COLS])
             }
         }
     }
+}
+
+void chooseSeats(int seats[ROWS][COLS])
+{
+    int row, col;
+    char input[10];
+    char response;
+    int totalSeats = 0; // Count the number of seats chosen
+
+    while (1)
+    {
+        printf("\nPlease enter seat choice (format like 1-2 for Row 1, Column 2) or enter 'Q'¡B'q' to finish choosing¡G");
+        fflush(stdin);
+        scanf("%s", input);
+
+        if (tolower(input[0]) == 'q')
+        { // If 'q' or 'Q' is entered, end choosing
+            break;
+        }
+
+        if (sscanf(input, "%d-%d", &row, &col) == 2 && row >= 1 && row <= ROWS && col >= 1 && col <= COLS)
+        {
+            if (seats[row - 1][col - 1] == 0)
+            {
+                seats[row - 1][col - 1] = 2; // Mark the seat as chosen temporarily
+                totalSeats++;
+            }
+            else
+            {
+                printf("Error¡GThe seat is already booked or unavailable.\n");
+            }
+        }
+        else
+        {
+            printf("Error¡GIncorrect input format.\n");
+        }
+    }
+
+    if (totalSeats > 0)
+    {
+        showSeats(seats);
+        printf("\nAre you satisfied with the seat choices¡H¡]y/n¡^: ");
+        fflush(stdin);
+        scanf(" %c", &response);
+        if (tolower(response) == 'y')
+        {
+            for (int i = 0; i < ROWS; i++)
+            { // Confirm choices, convert '@' to '*'
+                for (int j = 0; j < COLS; j++)
+                {
+                    if (seats[i][j] == 2)
+                    {
+                        seats[i][j] = 1; // Confirm choice
+                    }
+                }
+            }
+            printf("Selection confirmed.\n");
+        }
+        else
+        {
+            revertSuggestedSeats(seats); // Revert unconfirmed choices
+            printf("Selection reverted.\n");
+        }
+        pressAnyKeyToContinue();
+    }
+
+    system("cls"); // Clear the screen
 }
