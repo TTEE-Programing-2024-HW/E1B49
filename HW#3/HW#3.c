@@ -83,6 +83,10 @@ int main()
                     chooseSeats(seats);
                     break;
 
+                case 'd':
+                    keepRunning = exitConfirmation();
+                    break;
+
                 default:
                     printf("\nInvalid input, please re-enter.\n");
                     pressAnyKeyToContinue();
@@ -334,4 +338,35 @@ void chooseSeats(int seats[ROWS][COLS])
     }
 
     system("cls"); // Clear the screen
+}
+
+int exitConfirmation()
+{
+    char response;
+    printf("\nContinue¡H(Y/N)¡G");
+    while (1)
+    {
+        fflush(stdin);
+        scanf(" %c", &response);
+        response = tolower(response);
+
+        if (response == 'y')
+        {
+        	printf("\nReturn to main menu.\n");
+        	printf("\nPress any key to continue...");
+        	getch();
+            return 1; // Return to main menu
+        }
+        else if (response == 'n')
+        {
+        	printf("\nThe program will end soon.\n");
+        	printf("\nPress any key to continue...");
+        	getch();
+            return 0; // End program
+        }
+        else
+        {
+            printf("Invalid input, please re-enter.\n");
+        }
+    }
 }
