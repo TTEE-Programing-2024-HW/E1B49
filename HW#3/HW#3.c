@@ -245,6 +245,50 @@ int suggestSeats(int seats[ROWS][COLS], int numSeats)
     return found; // 1 if seats suggested successfully, 0 otherwise
 }
 
+int findFourSeats(int seats[ROWS][COLS])
+{
+    int found = 0;
+    // First, try to find 4 continuous seats in one row
+    for (int i = 0; i < ROWS && !found; i++)
+    {
+        for (int j = 0; j <= COLS - 4; j++)
+        {
+            if (seats[i][j] == 0 && seats[i][j + 1] == 0 && seats[i][j + 2] == 0 && seats[i][j + 3] == 0)
+            {
+                for (int k = 0; k < 4; k++)
+                {
+                    seats[i][j + k] = 2;
+                }
+                found = 1;
+                break;
+            }
+        }
+    }
+
+    // If not found, try two consecutive rows with 2 seats each
+    if (!found)
+    {
+        for (int i = 0; i < ROWS - 1 && !found; i++)
+        {
+            for (int j = 0; j <= COLS - 2; j++)
+            {
+                if (seats[i][j] == 0 && seats[i][j + 1] == 0 &&
+                    seats[i + 1][j] == 0 && seats[i + 1][j + 1] == 0)
+                {
+                    seats[i][j] = 2;
+                    seats[i][j + 1] = 2;
+                    seats[i + 1][j] = 2;
+                    seats[i + 1][j + 1] = 2;
+                    found = 1;
+                    break;
+                }
+            }
+        }
+    }
+
+    return found;
+}
+
 void acceptSuggestedSeats(int seats[ROWS][COLS])
 {
     for (int i = 0; i < ROWS; i++)
