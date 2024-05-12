@@ -394,16 +394,17 @@ void chooseSeats(int seats[ROWS][COLS])
 int exitConfirmation()
 {
     char response;
-    printf("\nContinue¡H(Y/N)¡G");
+    
     while (1)
     {
+    	printf("\nContinue¡H(Y/N)¡G");
         fflush(stdin);
         scanf(" %c", &response);
         response = tolower(response);
 
         if (response == 'y')
         {
-        	printf("\nReturn to main menu.\n");
+        	printf("\nPlease continue entering.\n");
         	printf("\nPress any key to continue...");
         	getch();
             return 1; // Return to main menu
