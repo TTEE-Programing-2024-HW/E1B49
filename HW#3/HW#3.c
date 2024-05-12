@@ -44,6 +44,41 @@ int main()
                     system("cls"); // Clear screen and return to main menu
                     break;
 
+                case 'b':
+                    printf("\nHow many seats do you need¡]1-4¡^¡H ");
+                    int numSeats;
+                    fflush(stdin);
+                    scanf("%d", &numSeats);
+                    if (numSeats < 1 || numSeats > 4)
+                    {
+                        printf("\nInput error, please enter a number between 1-4.\n");
+                        pressAnyKeyToContinue();
+                    }
+                    else if (suggestSeats(seats, numSeats))
+                    {
+                        showSeats(seats);
+                        printf("\nAre you satisfied with this seat arrangement¡H¡]y/n¡^: ");
+                        char response;
+                        fflush(stdin);
+                        scanf(" %c", &response);
+                        if (tolower(response) == 'y')
+                        {
+                            acceptSuggestedSeats(seats);
+                            system("cls"); // Clear screen and return to main menu
+                        }
+                        else
+                        {
+                            revertSuggestedSeats(seats); // Cancel the suggested seats
+                            system("cls");               // Clear screen and return to main menu
+                        }
+                    }
+                    else
+                    {
+                        printf("\nNot enough seats available.\n");
+                        pressAnyKeyToContinue();
+                    }
+                    break;
+
                 default:
                     printf("\nInvalid input, please re-enter.\n");
                     pressAnyKeyToContinue();
@@ -158,5 +193,74 @@ void showSeats(int seats[ROWS][COLS])
             printf("%c", seats[i][j] == 1 ? '*' : (seats[i][j] == 2 ? '@' : '-')); // Display seat status
         }
         printf("\n");
+    }
+}
+
+int suggestSeats(int seats[ROWS][COLS], int numSeats)
+{
+    int found = 0;
+
+    if (numSeats >= 1 && numSeats <= 3)
+    {
+        // Try to find numSeats in a single row
+        for (int i = 0; i < ROWS && !found; i++)
+        {
+            for (int j = 0; j <= COLS - numSeats; j++)
+            {
+                int valid = 1;
+                for (int k = 0; k < numSeats; k++)
+                {
+                    if (seats[i][j + k] != 0)
+                    {
+                        valid = 0;
+                        break;
+                    }
+                }
+                if (valid)
+                {
+                    for (int k = 0; k < numSeats; k++)
+                    {
+                        seats[i][j + k] = 2; // Suggest these seats
+                    }
+                    found = 1;
+                    break;
+                }
+            }
+        }
+    }
+    else if (numSeats == 4)
+    {
+        // Try to find 4 seats in one row or two consecutive rows with 2 seats each
+        found = findFourSeats(seats);
+    }
+
+    return found; // 1 if seats suggested successfully, 0 otherwise
+}
+
+void acceptSuggestedSeats(int seats[ROWS][COLS])
+{
+    for (int i = 0; i < ROWS; i++)
+    {
+        for (int j = 0; j < COLS; j++)
+        {
+            if (seats[i][j] == 2)
+            {
+                seats[i][j] = 1; // Confirm the seat selection by marking it reserved
+            }
+        }
+    }
+}
+
+void revertSuggestedSeats(int seats[ROWS][COLS])
+{
+    for (int i = 0; i < ROWS; i++)
+    {
+        for (int j = 0; j < COLS; j++)
+        {
+            if (seats[i][j] == 2)
+            {
+                seats[i][j] = 0; // Revert suggested seats back to empty
+            }
+        }
     }
 }
