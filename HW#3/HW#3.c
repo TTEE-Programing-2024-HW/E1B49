@@ -422,3 +422,27 @@ int exitConfirmation()
         }
     }
 }
+
+//I learned a lot from this assignment. 
+//The goal of this program is to provide a simple and easy-to-use interface that allows users to view, select, and book seats. 
+//The entire process requires consideration of the user's intuitiveness in operation, the efficiency of the program, and the security of the system. 
+//During this process, I encountered many technical challenges and logical issues, which gave me a deeper understanding of program development.
+
+//First, I modularized the program by dividing its functionalities into multiple independent functions, such as "initializeSeats," "showSeats," and "chooseSeats," among others. 
+//This method of decomposition not only makes the code clearer but also makes it easier to expand functionalities or fix errors in the future. 
+//Each function focuses on a specific task, reducing dependency between functions, which is very important for maintaining large systems.
+
+//In terms of user interaction, I endeavored to create a friendly user interface that allows users to operate the system through clear menus and intuitive instructions. 
+//I thought through almost all potential issues users might encounter, though there might still be some issues I didn't anticipate, and perhaps more checks are needed in the program to ensure the validity and reasonableness of user inputs.
+
+//Regarding security, I incorporated a password protection mechanism to enhance access control. 
+//Users must pass password authentication before they can select and book seats, which is very important for preventing unauthorized access. 
+//I implemented a simple password verification process, which, although basic, provides the necessary security for this program.
+
+//There is still room for improvement in this program. 
+//As mentioned earlier, the program's error handling is not comprehensive enough, and it needs more instructions to ensure the system's stability against unexpected inputs. 
+//Additionally, the portability of the system is an issue, as I used operating system-specific (Windows) commands to clear the screen. 
+
+//Overall, this seat booking system, although simple, covers many basic elements of software development: modular design, user interaction, and basic security measures. 
+//This project not only enhanced my programming skills but also gave me deeper insights into how to design user-friendly interfaces and implement effective functionalities. 
+//In the future, I hope to apply these experiences to more complex projects and further explore various aspects of program development.
