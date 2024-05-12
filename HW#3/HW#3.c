@@ -66,11 +66,18 @@ int main()
                             acceptSuggestedSeats(seats);
                             system("cls"); // Clear screen and return to main menu
                         }
-                        else
+                        else if (tolower(response) == 'n')
                         {
                             revertSuggestedSeats(seats); // Cancel the suggested seats
                             system("cls");               // Clear screen and return to main menu
                         }
+                        else
+						{
+							printf("\nInvalid input, please re-enter.\n");
+							revertSuggestedSeats(seats);
+							pressAnyKeyToContinue();
+							system("cls");
+						}
                     }
                     else
                     {
