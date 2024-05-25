@@ -38,6 +38,12 @@ int main()
     Student students[MAX_STUDENTS];
     int studentCount = 0;
     char choice;
+
+    // 首先進行密碼檢查
+    showmain();
+    checkPassword();
+
+    return 0;
 }
 
 void clearScreen()
