@@ -32,3 +32,10 @@ void gradeRanking(Student students[], int n);
 void exitConfirmation();
 void checkPassword();
 void showmain();
+
+int main()
+{
+    Student students[MAX_STUDENTS];
+    int studentCount = 0;
+    char choice;
+}
