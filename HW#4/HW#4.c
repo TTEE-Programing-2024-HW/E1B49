@@ -200,3 +200,53 @@ void displayStudentGrades(Student students[], int n)
     printf("\n請按下任一鍵以返回主選單...");
     getch(); // 等待用戶按鍵
 }
+
+// 搜尋學生成績的函數
+void searchStudentGrades(Student students[], int n)
+{
+    char searchName[NAME_LEN];
+    int found = 0;
+
+    clearScreen();
+    printf("請輸入要搜尋的學生姓名，英文不分大小寫：");
+    scanf("%s", searchName);
+
+    // 將搜尋姓名轉換為小寫
+    for (int i = 0; searchName[i]; i++)
+    {
+        searchName[i] = tolower(searchName[i]);
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        char tempName[NAME_LEN];
+        strcpy(tempName, students[i].name);
+
+        // 將學生姓名轉換為小寫
+        for (int j = 0; tempName[j]; j++)
+        {
+            tempName[j] = tolower(tempName[j]);
+        }
+
+        if (strcmp(tempName, searchName) == 0)
+        {
+            printf("\n學生資料：\n");
+            printf("姓名：%s\n", students[i].name);
+            printf("學號：%d\n", students[i].id);
+            printf("數學成績：%d\n", students[i].math);
+            printf("物理成績：%d\n", students[i].physics);
+            printf("英文成績：%d\n", students[i].english);
+            printf("平均成績：%.1f\n", students[i].average);
+            found = 1;
+            break;
+        }
+    }
+
+    if (!found)
+    {
+        printf("\n資料不存在。\n");
+    }
+
+    printf("\n請按下任一鍵以返回主選單...");
+    getch(); // 等待用戶按鍵
+}
