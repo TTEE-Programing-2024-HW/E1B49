@@ -21,3 +21,14 @@ typedef struct
     int english;
     float average;
 } Student;
+
+// ¨ç¼ÆÁn©ú
+void clearScreen();
+void displayMenu();
+void enterStudentGrades(Student students[], int *n);
+void displayStudentGrades(Student students[], int n);
+void searchStudentGrades(Student students[], int n);
+void gradeRanking(Student students[], int n);
+void exitConfirmation();
+void checkPassword();
+void showmain();
