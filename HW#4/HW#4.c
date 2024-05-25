@@ -31,7 +31,7 @@ void searchStudentGrades(Student students[], int n);
 void gradeRanking(Student students[], int n);
 void exitConfirmation();
 void checkPassword();
-void showmain();
+void showMain();
 
 int main()
 {
@@ -43,4 +43,34 @@ int main()
 void clearScreen()
 {
     system("cls");
+}
+
+// 顯示個人畫面的函數
+void showMain()
+{
+    printf("      ______________\n");
+    printf("     /              \\\n");
+    printf("    /                \\\n");
+    printf("   /                  \\\n");
+    printf("  /                    \\\n");
+    printf(" /                      \\\n");
+    printf("|                        |\n");
+    printf("|                        |\n");
+    printf("|                        |\n");
+    printf("|       _________        |\n");
+    printf("|      /         \\       |\n");
+    printf("|     /  R  I  P  \\      |\n");
+    printf("|    /             \\     |\n");
+    printf("|   /_______________\\    |\n");
+    printf("|                        |\n");
+    printf("|                        |\n");
+    printf("|                        |\n");
+    printf("|                        |\n");
+    printf("|                        |\n");
+    printf("|                        |\n");
+    printf("|                        |\n");
+    printf("|                        |\n");
+    printf("|                        |\n");
+    printf("|                        |\n");
+    printf("|________________________|\n");
 }
