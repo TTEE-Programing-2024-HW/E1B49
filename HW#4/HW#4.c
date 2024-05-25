@@ -105,3 +105,15 @@ void checkPassword()
         exit(1);
     }
 }
+
+// 顯示主選單的函數
+void displayMenu()
+{
+    printf(" ------------[Grade System]-----------\n");
+    printf("|     a. Enter student grades         |\n");
+    printf("|     b. Display student grades       |\n");
+    printf("|     c. Search for student grades    |\n");
+    printf("|     d. Grade ranking                |\n");
+    printf("|     e. Exit system                  |\n");
+    printf(" -------------------------------------\n");
+}
