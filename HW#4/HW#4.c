@@ -40,7 +40,7 @@ int main()
     char choice;
 
     // 首先進行密碼檢查
-    showmain();
+    showMain();
     checkPassword();
 
     while (1)
