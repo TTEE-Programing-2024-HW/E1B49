@@ -10,3 +10,14 @@
 #define ID_LEN 6
 #define PASSWORD "2024"
 #define MAX_ATTEMPTS 3
+
+// 學生資料結構體
+typedef struct
+{
+    char name[NAME_LEN];
+    int id;
+    int math;
+    int physics;
+    int english;
+    float average;
+} Student;
