@@ -250,3 +250,35 @@ void searchStudentGrades(Student students[], int n)
     printf("\n請按下任一鍵以返回主選單...");
     getch(); // 等待用戶按鍵
 }
+
+// 成績排名的函數
+void gradeRanking(Student students[], int n)
+{
+    clearScreen();
+
+    // 使用泡沫排序法排序成績
+    for (int i = 0; i < n - 1; i++)
+    {
+        for (int j = 0; j < n - i - 1; j++)
+        {
+            if (students[j].average < students[j + 1].average)
+            {
+                Student temp = students[j];
+                students[j] = students[j + 1];
+                students[j + 1] = temp;
+            }
+        }
+    }
+
+    printf("成績排名，由高到低：\n\n");
+    printf("學生姓名\t學號\t平均成績\n");
+    printf("--------------------------------\n");
+
+    for (int i = 0; i < n; i++)
+    {
+        printf("%s\t\t%d\t%.1f\n", students[i].name, students[i].id, students[i].average);
+    }
+
+    printf("\n請按下任一鍵以返回主選單...");
+    getch(); // 等待用戶按鍵
+}
