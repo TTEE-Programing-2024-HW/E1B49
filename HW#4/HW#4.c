@@ -282,3 +282,31 @@ void gradeRanking(Student students[], int n)
     printf("\n請按下任一鍵以返回主選單...");
     getch(); // 等待用戶按鍵
 }
+
+// 確認離開的函數
+void exitConfirmation()
+{
+    char choice;
+
+    while (1)
+    {
+        printf("\n確定離開？(Y/N)，不分大小寫：");
+        fflush(stdin);
+        scanf("%c", &choice);
+        choice = tolower(choice);
+
+        if (choice == 'y')
+        {
+            printf("\n程式即將結束。");
+            exit(0);
+        }
+        else if (choice == 'n')
+        {
+            return;
+        }
+        else
+        {
+            printf("\n無效選項，請輸入 Y 或 N，不分大小寫。\n");
+        }
+    }
+}
