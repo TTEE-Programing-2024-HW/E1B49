@@ -43,6 +43,39 @@ int main()
     showmain();
     checkPassword();
 
+    while (1)
+    {
+        clearScreen();
+        displayMenu();
+        printf("請選擇選項，不分大小寫：");
+        fflush(stdin);
+        scanf("%c", &choice);
+        choice = tolower(choice);
+
+        switch (choice)
+        {
+        case 'a':
+            enterStudentGrades(students, &studentCount);
+            break;
+        case 'b':
+            displayStudentGrades(students, studentCount);
+            break;
+        case 'c':
+            searchStudentGrades(students, studentCount);
+            break;
+        case 'd':
+            gradeRanking(students, studentCount);
+            break;
+        case 'e':
+            exitConfirmation();
+            break;
+        default:
+            printf("\n無效選項，請重新選擇。\n\n");
+            system("pause");
+            break;
+        }
+    }
+
     return 0;
 }
 
