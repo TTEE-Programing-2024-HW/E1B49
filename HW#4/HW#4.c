@@ -39,3 +39,8 @@ int main()
     int studentCount = 0;
     char choice;
 }
+
+void clearScreen()
+{
+    system("cls");
+}
