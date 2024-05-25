@@ -74,3 +74,34 @@ void showMain()
     printf("|                        |\n");
     printf("|________________________|\n");
 }
+
+// 檢查密碼的函數
+void checkPassword()
+{
+    char input[5];
+    int attempts = 0;
+
+    while (attempts < MAX_ATTEMPTS)
+    {
+        printf("請輸入四位數的密碼：");
+        scanf("%4s", input);
+
+        if (strcmp(input, PASSWORD) == 0)
+        {
+            printf("\n密碼正確，歡迎！");
+            system("pause");
+            return;
+        }
+        else
+        {
+            printf("\n密碼錯誤，請再試一次。\n\n");
+            attempts++;
+        }
+    }
+
+    if (attempts == MAX_ATTEMPTS)
+    {
+        printf("已連續錯誤三次，程式結束。");
+        exit(1);
+    }
+}
