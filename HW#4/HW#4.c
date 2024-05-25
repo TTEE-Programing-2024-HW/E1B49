@@ -184,3 +184,19 @@ void enterStudentGrades(Student students[], int *n)
     printf("\n所有學生資料已輸入完畢，請按下任一鍵以返回主選單。");
     getch(); // 等待用戶按鍵
 }
+
+// 顯示學生成績的函數
+void displayStudentGrades(Student students[], int n)
+{
+    clearScreen();
+    printf("學生姓名\t學號\t數學\t物理\t英文\t平均成績\n");
+    printf("--------------------------------------------------------\n");
+
+    for (int i = 0; i < n; i++)
+    {
+        printf("%s\t\t%d\t%d\t%d\t%d\t%.1f\n", students[i].name, students[i].id, students[i].math, students[i].physics, students[i].english, students[i].average);
+    }
+
+    printf("\n請按下任一鍵以返回主選單...");
+    getch(); // 等待用戶按鍵
+}
